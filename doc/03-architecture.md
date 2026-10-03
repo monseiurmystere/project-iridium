@@ -38,6 +38,7 @@ src/services/                      app-logger, tag-error, tag-reader, tag-writer
                                    file-scanner, cover-art-service
 src/c/, src/vapi/                  TagLib picture helper and its Vala binding
 data/about.json                    About dialog strings (GResource, parsed with json-glib)
+po/                                gettext catalogs (fr/es/de), extract-pot.py, install-mo.py
 src/views/                         window, empty-state, sidebar, file-list-row,
                                    tag-editor, tag-basic-group, tag-details-group, save-bar
 src/widgets/                        tag-field-row (Adw.EntryRow + uint helpers),

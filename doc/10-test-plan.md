@@ -57,6 +57,7 @@ writes a real `COMM` frame (covered by `/tag/roundtrip`).
 | `/cover/unloaded-untouched` | COV-10 core |
 | `/cover/service-limits` | COV-07/08 core (type and size rejection) |
 | `validate-desktop`, `validate-metainfo`, `validate-about-json` | BLD-02 |
+| `po-fr`, `po-es`, `po-de` (`msgfmt --check`) | I18N-07 core (syntax only) |
 
 Everything else is manual.
 
@@ -349,6 +350,49 @@ Failure: noisy journal in normal runs.
 Steps: 1. Open Logs, search `Iridium`.
 Success: app entries listed with correct timestamps and levels.
 Failure: absent (identifier mismatch) or misleveled.
+
+## 10b. Translations (I18N)
+
+Preconditions for all: app installed (`sudo meson install -C build`);
+langpacks installed (see [02-getting-started](02-getting-started.md)).
+
+### I18N-01 German UI smoke — Priority: P1 — Type: manual — Result: [ ]
+Steps: 1. `LANG=de_DE.UTF-8 iridium`. 2. Walk the empty state, open dialogs,
+editor groups, save bar and About.
+Success: "Keine Dateien geöffnet", "Speichern", "Zurücksetzen", "Über
+Iridium"; no English leftovers in widgets; no crash.
+Failure: English strings (catalog not loaded — check localedir install);
+crash on missing locale (must fall back, never crash).
+
+### I18N-02 French and Spanish spot check — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. Repeat I18N-01 with `LANG=fr_FR.UTF-8` and `LANG=es_ES.UTF-8`.
+Success: "Aucun fichier ouvert" / "Ningún archivo abierto"; About comments
+translated.
+Failure: untranslated strings (missing msgstr); wrong encoding (mojibake).
+
+### I18N-03 Plural forms — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. In each language, open one bad file, then two bad files.
+Success: singular/plural correct per language (fr: `n > 1`; es/de: `n != 1`).
+Failure: "1 fichiers" style errors; `%u` placeholder dropped.
+
+### I18N-04 Untranslated locale falls back — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. `LANG=ja_JP.UTF-8 iridium`.
+Success: full English UI, no crash.
+Failure: empty labels; crash.
+
+### I18N-05 German layout holds — Priority: P3 — Type: manual — Result: [ ]
+Steps: 1. `LANG=de_DE.UTF-8 iridium`. 2. Narrow the window to ~600px.
+Success: long compounds ("Ungespeicherte Änderungen") wrap or ellipsize;
+no clipped buttons (extends UI-01 per locale).
+Failure: overlapping widgets; save bar unreachable.
+
+### I18N-06 POT is fresh — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. `meson compile -C build iridium-pot`. 2. `msgmerge` each `.po`
+and `git diff --stat`.
+Success: no new untranslated msgids after unrelated changes; new UI strings
+from a feature branch appear here before merge.
+Failure: strings missing from the POT (extraction gap — see risks in
+[.features/translations](.features/translations.md)).
 
 ## 11. UI and adaptive (UI)
 

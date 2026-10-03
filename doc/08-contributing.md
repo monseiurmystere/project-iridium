@@ -6,6 +6,8 @@
   and surface failures as toasts.
 - Add new framework-free code to `core_sources` and cover it in `tests/`.
 - Add test cases for new features to [10-test-plan.md](10-test-plan.md)
+- New user-visible strings need `_()` (or `ngettext`), then regenerate the POT
+  and update `po/*.po` (see [translations](.features/translations.md)).
   and extend `tests/fixtures/make-fixtures.sh` when new fixtures are needed.
 - Before a PR: `meson compile`, `meson test`, manual checklist in
   [07-testing-qa.md](07-testing-qa.md).
