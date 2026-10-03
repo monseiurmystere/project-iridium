@@ -1,4 +1,6 @@
 namespace Iridium.Config {
     public const string VERSION = "@VERSION@";
     public const string APP_ID = "co.tylr.Iridium";
+    public const string GETTEXT_PACKAGE = "iridium";
+    public const string LOCALEDIR = "@LOCALEDIR@";
 }

@@ -6,7 +6,7 @@ public class Iridium.Application : Adw.Application {
             resource_base_path: "/co/tylr/Iridium"
         );
         add_main_option ("verbose", 'v', OptionFlags.NONE, OptionArg.NONE,
-                         "Enable debug logging", null);
+                         _("Enable debug logging"), null);
         handle_local_options.connect (on_local_options);
     }
 
@@ -17,6 +17,11 @@ public class Iridium.Application : Adw.Application {
 
     protected override void startup () {
         base.startup ();
+        Intl.setlocale (LocaleCategory.ALL, "");
+        Intl.bindtextdomain (Config.GETTEXT_PACKAGE, Config.LOCALEDIR);
+        Intl.bind_textdomain_codeset (Config.GETTEXT_PACKAGE, "UTF-8");
+        Intl.textdomain (Config.GETTEXT_PACKAGE);
+
         TagLib.ID3v2.set_default_text_encoding (TagLib.ID3v2.Encoding.UTF8);
 
         var about = new SimpleAction ("about", null);

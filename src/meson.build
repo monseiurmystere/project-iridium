@@ -1,7 +1,10 @@
 config_vala = configure_file(
   input: 'config.vala.in',
   output: 'config.vala',
-  configuration: {'VERSION': meson.project_version()},
+  configuration: {
+    'VERSION': meson.project_version(),
+    'LOCALEDIR': get_option('prefix') / get_option('localedir'),
+  },
 )
 
 # Framework-free code: shared with the unit tests (see tests/meson.build).

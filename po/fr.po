@@ -1,0 +1,201 @@
+# Iridium translations (fr). DRAFT - requires review before release.
+msgid ""
+msgstr ""
+"Project-Id-Version: iridium 0.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-03 20:26+0200\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/application.vala:9
+msgid "Enable debug logging"
+msgstr "Activer les journaux de débogage"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/about-dialog.vala:38
+msgid "Iridium"
+msgstr "Iridium"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/about-dialog.vala:39
+msgid "Tyler"
+msgstr "Tyler"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/about-dialog.vala:40
+msgid "Edit audio file tags"
+msgstr "Modifier les tags des fichiers audio"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/open-dialogs.vala:4
+msgid "Audio files"
+msgstr "Fichiers audio"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/open-dialogs.vala:9
+msgid "Open Audio Files"
+msgstr "Ouvrir des fichiers audio"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/open-dialogs.vala:24
+msgid "Open Folder"
+msgstr "Ouvrir un dossier"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/open-dialogs.vala:36
+msgid "Images (JPEG, PNG)"
+msgstr "Images (JPEG, PNG)"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/dialogs/open-dialogs.vala:42
+msgid "Choose Cover Image"
+msgstr "Choisir une pochette"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/cover-art-service.vala:9
+msgid "Image is larger than 10 MB"
+msgstr "L’image dépasse 10 Mo"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/cover-art-service.vala:14
+msgid "Only JPEG and PNG images are supported"
+msgstr "Seuls les formats JPEG et PNG sont pris en charge"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/cover-art-service.vala:21
+#, c-format
+msgid "Cannot read image: %s"
+msgstr "Impossible de lire l’image : %s"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/tag-reader.vala:6
+#, c-format
+msgid "Cannot read tags from %s"
+msgstr "Impossible de lire les tags de %s"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/tag-reader.vala:26
+#, c-format
+msgid "Cannot read cover from %s"
+msgstr "Impossible de lire la pochette de %s"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/tag-writer.vala:6
+#, c-format
+msgid "Cannot open %s"
+msgstr "Impossible d’ouvrir %s"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/tag-writer.vala:18
+#, c-format
+msgid "%s does not support cover art"
+msgstr "%s ne prend pas en charge les pochettes"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/services/tag-writer.vala:21
+#, c-format
+msgid "Cannot save %s (is it read-only?)"
+msgstr "Impossible d’enregistrer %s (est-il en lecture seule ?)"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/views/iridium-window.vala:58
+#, c-format
+msgid "Could not read %u file"
+msgid_plural "Could not read %u files"
+msgstr[0] "Impossible de lire %u fichier"
+msgstr[1] "Impossible de lire %u fichiers"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/src/views/iridium-window.vala:169
+#, c-format
+msgid "Saved %s"
+msgstr "%s enregistré"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/empty-state-view.ui:18
+msgid "No Files Open"
+msgstr "Aucun fichier ouvert"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/empty-state-view.ui:19
+msgid "Open audio files or drop them here to edit their tags."
+msgstr "Ouvrez des fichiers audio ou déposez-les ici pour modifier leurs tags."
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/empty-state-view.ui:27
+msgid "Open Files…"
+msgstr "Ouvrir des fichiers…"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/empty-state-view.ui:37
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:90
+msgid "Open Folder…"
+msgstr "Ouvrir un dossier…"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/file-list-row.ui:39
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/save-bar.ui:17
+msgid "Unsaved changes"
+msgstr "Modifications non enregistrées"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:32
+msgid "Files"
+msgstr "Fichiers"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:40
+msgid "Open Files"
+msgstr "Ouvrir des fichiers"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:62
+msgid "Tags"
+msgstr "Tags"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:94
+msgid "About Iridium"
+msgstr "À propos d’Iridium"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/iridium-window.ui:98
+msgid "Quit"
+msgstr "Quitter"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/save-bar.ui:25
+msgid "Save"
+msgstr "Enregistrer"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/save-bar.ui:34
+msgid "Revert"
+msgstr "Annuler"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-basic-group.ui:10
+msgid "Basic"
+msgstr "Général"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-basic-group.ui:13
+msgid "Title"
+msgstr "Titre"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-basic-group.ui:18
+msgid "Artist"
+msgstr "Artiste"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-basic-group.ui:23
+msgid "Album"
+msgstr "Album"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-basic-group.ui:28
+msgid "Genre"
+msgstr "Genre"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-details-group.ui:10
+msgid "Details"
+msgstr "Détails"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-details-group.ui:13
+msgid "Year"
+msgstr "Année"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-details-group.ui:19
+msgid "Track"
+msgstr "Piste"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-details-group.ui:25
+msgid "Comment"
+msgstr "Commentaire"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/views/tag-editor-view.ui:14
+msgid "Cover"
+msgstr "Pochette"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/widgets/cover-art-widget.ui:56
+msgid "Change…"
+msgstr "Modifier…"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/build/src/widgets/cover-art-widget.ui:62
+msgid "Remove"
+msgstr "Supprimer"
+
+#: /home/tyler/Repositories/vala/co.tylr.Iridium/data/co.tylr.Iridium.metainfo.xml.in:10
+msgid ""
+"Iridium is a native GNOME editor for ID3 and other audio tags. Open files or "
+"whole folders, edit titles, artists, albums and more, then save or revert "
+"your changes."
+msgstr "Iridium est un éditeur de tags audio natif pour GNOME. Ouvrez des fichiers ou des dossiers entiers, modifiez titres, artistes, albums et bien plus, puis enregistrez ou annulez vos modifications."

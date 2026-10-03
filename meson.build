@@ -10,6 +10,10 @@ resource_prefix = '/co/tylr/Iridium'
 i18n = import('i18n')
 gnome = import('gnome')
 
+# Vala's _() expands to g_dgettext (GETTEXT_PACKAGE, ...).
+add_project_arguments('-DGETTEXT_PACKAGE="iridium"', language: 'c')
+
 subdir('data')
 subdir('src')
+subdir('po')
 subdir('tests')
