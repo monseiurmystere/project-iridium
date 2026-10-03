@@ -411,6 +411,31 @@ Success: no typos, no stale versions, flags match `--help`.
 Failure: script references anything not installable (full clean-room runs
 need a fresh VM and are aspirational — see section 17).
 
+## 10d. Install (INS)
+
+### INS-01 Native install round-trip — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. `./tools/install.sh`. 2. Launch `iridium` from the app grid
+(icon must be visible immediately — proves cache updates ran). 3. Open a
+file, save a tag. 4. `./tools/install.sh --uninstall`. 5. Confirm `command -v
+iridium` finds nothing.
+Success: install, grid icon, working app, clean removal.
+Failure: missing icon (cache step skipped); files left behind (check
+`/usr/local/share/applications`, `icons`, `bin`).
+
+### INS-02 Flatpak bundle round-trip — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. `./tools/install.sh --flatpak`. 2. `flatpak run co.tylr.Iridium`,
+open a file in `xdg-music`. 3. `./tools/install.sh --flatpak --uninstall`.
+Success: `iridium.flatpak` built; app runs sandboxed; portal file access
+works outside `xdg-music`; removal clean.
+Failure: SDK/runtime mismatch; portal denied with no message.
+
+### INS-03 Check accuracy — Priority: P3 — Type: manual — Result: [ ]
+Steps: 1. `--check` (both flavors) before install, after install, after
+uninstall.
+Success: MISSING → INSTALLED → MISSING, matching reality; bundle line
+accurate.
+Failure: false INSTALLED.
+
 ## 11. UI and adaptive (UI)
 
 ### UI-01 Narrow window collapses — Priority: P2 — Type: manual — Result: [ ]

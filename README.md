@@ -27,6 +27,18 @@ meson test -C build
 ./build/src/iridium
 ```
 
+## Install
+
+Contributors (this checkout):
+
+```bash
+./tools/install.sh            # native install to /usr/local
+./tools/install.sh --flatpak  # or: build iridium.flatpak and install it
+```
+
+Both flavors support `--uninstall` and `--check`. Details in
+[06-packaging](doc/06-packaging.md).
+
 Logs: `journalctl --user -t co.tylr.Iridium` (also visible in GNOME Logs).
 
 ## Features

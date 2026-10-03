@@ -13,6 +13,7 @@
 - Before a PR: `meson compile`, `meson test`, manual checklist in
   [07-testing-qa.md](07-testing-qa.md).
 - New features start as a file in [.features](.features/README.md).
+- Packaging changes go through `tools/install.sh`, not ad-hoc commands.
 - New dependencies go in three places: `tools/onboard.sh`, the README
   prerequisites, and [02-getting-started](02-getting-started.md).
 - Icons and raster images must follow the GNOME design language (see
