@@ -68,6 +68,7 @@ iridium_deps = [
   dependency('gtk4', version: '>= 4.12'),
   dependency('libadwaita-1', version: '>= 1.5'),
   dependency('taglib_c'),
+  dependency('json-glib-1.0', version: '>= 1.6'),
   meson.get_compiler('vala').find_library('posix'),
 ]
 

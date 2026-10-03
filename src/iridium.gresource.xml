@@ -10,5 +10,6 @@
     <file>views/tag-basic-group.ui</file>
     <file>views/tag-details-group.ui</file>
     <file>views/save-bar.ui</file>
+    <file alias="data/about.json">../data/about.json</file>
   </gresource>
 </gresources>
