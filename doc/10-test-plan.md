@@ -56,7 +56,7 @@ writes a real `COMM` frame (covered by `/tag/roundtrip`).
 | `/cover/roundtrip` | COV-02/03/04/06 core (write, read back, remove, revert) |
 | `/cover/unloaded-untouched` | COV-10 core |
 | `/cover/service-limits` | COV-07/08 core (type and size rejection) |
-| `validate-desktop`, `validate-metainfo` | BLD-02 |
+| `validate-desktop`, `validate-metainfo`, `validate-about-json` | BLD-02 |
 
 Everything else is manual.
 

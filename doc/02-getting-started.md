@@ -4,7 +4,7 @@
 
 ```bash
 sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel \
-  blueprint-compiler taglib-devel desktop-file-utils appstream \
+  blueprint-compiler taglib-devel json-glib-devel desktop-file-utils appstream \
   flatpak-builder
 ```
 

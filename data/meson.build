@@ -24,3 +24,11 @@ if appstream_util.found()
     args: ['-c', '! appstreamcli validate --no-net "$0" | grep -q "^E:"',
            files('co.tylr.Iridium.metainfo.xml')])
 endif
+
+# about.json must parse and carry the required About dialog strings.
+test('validate-about-json', find_program('python3'),
+  args: ['-c',
+         'import json,sys; d = json.load(open(sys.argv[1]));\n' +
+         'assert all(isinstance(d[k], str) and d[k] for k in\n' +
+         '         ["application-name", "developer-name", "comments"]), "missing key"',
+         files('about.json')])

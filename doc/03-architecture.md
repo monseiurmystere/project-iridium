@@ -37,11 +37,13 @@ src/models/                        audio-tag, audio-file, cover-art
 src/services/                      app-logger, tag-error, tag-reader, tag-writer,
                                    file-scanner, cover-art-service
 src/c/, src/vapi/                  TagLib picture helper and its Vala binding
+data/about.json                    About dialog strings (GResource, parsed with json-glib)
 src/views/                         window, empty-state, sidebar, file-list-row,
                                    tag-editor, tag-basic-group, tag-details-group, save-bar
 src/widgets/                        tag-field-row (Adw.EntryRow + uint helpers),
                                    cover-art-widget
-src/dialogs/                       about, open-dialogs (Gtk.FileDialog wrappers)
+src/dialogs/                       about (content from data/about.json, hardcoded
+                                   fallback), open-dialogs (Gtk.FileDialog wrappers)
 ```
 
 `models/` and `services/` are in `core_sources` (src/meson.build), which the
