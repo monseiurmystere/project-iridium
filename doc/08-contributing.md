@@ -7,3 +7,6 @@
 - Add new framework-free code to `core_sources` and cover it in `tests/`.
 - Before a PR: `meson compile`, `meson test`, manual checklist in
   [07-testing-qa.md](07-testing-qa.md).
+- New features start as a file in [.features](.features/README.md).
+- Icons and raster images must follow the GNOME design language (see
+  [app-icon](.features/app-icon.md)).

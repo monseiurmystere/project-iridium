@@ -18,4 +18,4 @@ plus Vorbis/FLAC/MP4 tags through TagLib).
 Open files/folders (dialog, drag and drop, CLI args), list them, edit
 title/artist/album/genre/year/track/comment, save/revert with dirty tracking.
 
-Not yet: cover art, batch editing of multiple selected files.
+Planned features are tracked in [.features](.features/README.md).
