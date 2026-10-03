@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Iridium
+Comment=Edit audio file tags
+Exec=iridium %F
+Icon=co.tylr.Iridium
+Terminal=false
+Type=Application
+Categories=GTK;GNOME;AudioVideo;Audio;
+MimeType=audio/mpeg;audio/flac;audio/ogg;audio/mp4;
+StartupNotify=true

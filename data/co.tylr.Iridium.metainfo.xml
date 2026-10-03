@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>co.tylr.Iridium</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Iridium</name>
+  <developer id="co.tylr"><name>Tyler</name></developer>
+  <summary>Edit audio file tags</summary>
+  <description>
+    <p>Iridium is a native GNOME editor for ID3 and other audio tags. Open files or whole folders, edit titles, artists, albums and more, then save or revert your changes.</p>
+  </description>
+  <launchable type="desktop-id">co.tylr.Iridium.desktop</launchable>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2026-10-03"/>
+  </releases>
+</component>
