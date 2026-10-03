@@ -1,0 +1,33 @@
+namespace Iridium.Dialogs {
+    /** Asks for audio files. Returns an empty array if dismissed. */
+    public async File[] pick_files (Gtk.Window parent) {
+        var filter = new Gtk.FileFilter () { name = "Audio files" };
+        filter.add_mime_type ("audio/*");
+        var filters = new ListStore (typeof (Gtk.FileFilter));
+        filters.append (filter);
+
+        var dialog = new Gtk.FileDialog () { title = "Open Audio Files", filters = filters };
+        File[] files = {};
+        try {
+            var list = yield dialog.open_multiple (parent, null);
+            for (uint i = 0; i < list.get_n_items (); i++) {
+                files += (File) list.get_item (i);
+            }
+        } catch (Error e) {
+            AppLogger.debug_message ("open-files dismissed: " + e.message);
+        }
+        return files;
+    }
+
+    /** Asks for a folder. Returns an empty array if dismissed. */
+    public async File[] pick_folder (Gtk.Window parent) {
+        var dialog = new Gtk.FileDialog () { title = "Open Folder" };
+        File[] files = {};
+        try {
+            files += yield dialog.select_folder (parent, null);
+        } catch (Error e) {
+            AppLogger.debug_message ("open-folder dismissed: " + e.message);
+        }
+        return files;
+    }
+}
