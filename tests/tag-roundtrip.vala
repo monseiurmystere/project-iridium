@@ -17,6 +17,7 @@ void test_roundtrip () {
 
         var audio = new Iridium.AudioFile (path, Iridium.TagReader.read (path));
         audio.tag.title = "Título";
+        audio.tag.comment = "roundtrip comment";
         audio.tag.artist = "Artist";
         audio.tag.year = 2026;
         audio.tag.track = 3;
@@ -29,6 +30,7 @@ void test_roundtrip () {
         assert (back.artist == "Artist");
         assert (back.year == 2026);
         assert (back.track == 3);
+        assert (back.comment == "roundtrip comment");
         FileUtils.remove (path);
     } catch (Error e) {
         Test.fail_printf ("%s", e.message);
