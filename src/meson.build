@@ -27,6 +27,7 @@ ui_sources = files(
   'dialogs/about-dialog.vala',
   'dialogs/open-dialogs.vala',
   'widgets/tag-field-row.vala',
+  'widgets/cover-art-widget.vala',
   'views/iridium-window.vala',
   'views/empty-state-view.vala',
   'views/sidebar-view.vala',
@@ -39,6 +40,7 @@ ui_sources = files(
 
 blueprints = custom_target('blueprints',
   input: files(
+    'widgets/cover-art-widget.blp',
     'views/iridium-window.blp',
     'views/empty-state-view.blp',
     'views/sidebar-view.blp',

@@ -17,6 +17,8 @@ public class Iridium.Window : Adw.ApplicationWindow {
         { "open-folder", on_open_folder },
         { "save", on_save },
         { "revert", on_revert },
+        { "change-cover", on_change_cover },
+        { "remove-cover", on_remove_cover },
     };
 
     static construct {
@@ -77,12 +79,13 @@ public class Iridium.Window : Adw.ApplicationWindow {
         dirty_binding = null;
 
         current = file;
+        ensure_cover (file);
         editor.load (file);
         save_bar.dirty = false;
         if (file != null) {
             dirty_binding = file.bind_property ("dirty", save_bar, "dirty",
                                                 BindingFlags.SYNC_CREATE);
-            dirty_handler = file.notify["dirty"].connect (update_actions);
+            dirty_handler = file.notify.connect (() => update_actions ());
             AppLogger.action ("select", file.basename);
         }
         update_actions ();
@@ -92,6 +95,49 @@ public class Iridium.Window : Adw.ApplicationWindow {
         var dirty = current != null && current.dirty;
         ((SimpleAction) lookup_action ("save")).set_enabled (dirty);
         ((SimpleAction) lookup_action ("revert")).set_enabled (dirty);
+        ((SimpleAction) lookup_action ("change-cover")).set_enabled (current != null);
+        ((SimpleAction) lookup_action ("remove-cover")).set_enabled (
+            current != null && current.cover != null);
+    }
+
+    private void ensure_cover (AudioFile? file) {
+        if (file == null || file.cover_loaded) {
+            return;
+        }
+        try {
+            file.load_cover (TagReader.read_cover (file.path));
+        } catch (TagError e) {
+            AppLogger.error ("cover-read-failed", e.message, file.path);
+            file.load_cover (null);
+        }
+    }
+
+    private void on_change_cover () {
+        change_cover.begin ();
+    }
+
+    private async void change_cover () {
+        var image = yield Dialogs.pick_image (this);
+        if (image == null || current == null) {
+            return;
+        }
+        try {
+            current.replace_cover (CoverArtService.load (image));
+            editor.show_cover (current.cover);
+            AppLogger.action ("cover-change", current.basename);
+        } catch (TagError e) {
+            AppLogger.error ("cover-read-failed", e.message, image.get_path ());
+            toast (e.message);
+        }
+    }
+
+    private void on_remove_cover () {
+        if (current == null) {
+            return;
+        }
+        current.replace_cover (null);
+        editor.show_cover (null);
+        AppLogger.action ("cover-remove", current.basename);
     }
 
     private void on_open_files () {
