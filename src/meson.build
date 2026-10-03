@@ -5,13 +5,19 @@ config_vala = configure_file(
 )
 
 # Framework-free code: shared with the unit tests (see tests/meson.build).
+core_inc = include_directories('c')
+
 core_sources = files(
+  'c/taglib-picture.c',
+  'vapi/iridium-taglib.vapi',
+  'models/cover-art.vala',
   'models/audio-tag.vala',
   'models/audio-file.vala',
   'services/app-logger.vala',
   'services/tag-error.vala',
   'services/tag-reader.vala',
   'services/tag-writer.vala',
+  'services/cover-art-service.vala',
   'services/file-scanner.vala',
 )
 
@@ -66,5 +72,6 @@ iridium_deps = [
 executable('iridium',
   core_sources, ui_sources, config_vala, resources,
   dependencies: iridium_deps,
+  include_directories: core_inc,
   install: true,
 )
