@@ -42,9 +42,9 @@ namespace Iridium.Dialogs {
      */
     private AboutInfo load_about_info () {
         var info = AboutInfo () {
-            app_name = _("Iridium"),
-            developer = _("Tyler"),
-            comments = _("Edit audio file tags"),
+            app_name = _("Codename: Iridium"),
+            developer = _("Ashleigh Clark"),
+            comments = _("A simple application designed to edit audio information for supported files. Album art is also supported here."),
             copyright = "",
             website = "",
             issue_url = ""
@@ -55,9 +55,9 @@ namespace Iridium.Dialogs {
             var parser = new Json.Parser ();
             parser.load_from_data ((string) bytes.get_data (), (ssize_t) bytes.length);
             var obj = parser.get_root ().get_object ();
-            info.app_name = _(obj.get_string_member_with_default ("application-name", "Iridium"));
-            info.developer = _(obj.get_string_member_with_default ("developer-name", "Tyler"));
-            info.comments = _(obj.get_string_member_with_default ("comments", "Edit audio file tags"));
+            info.app_name = _(obj.get_string_member_with_default ("application-name", "Codename: Iridium"));
+            info.developer = _(obj.get_string_member_with_default ("developer-name", "Ashleigh Clark"));
+            info.comments = _(obj.get_string_member_with_default ("comments", "A simple application designed to edit audio information for supported files. Album art is also supported here."));
             info.copyright = obj.get_string_member_with_default ("copyright", info.copyright);
             info.website = obj.get_string_member_with_default ("website", info.website);
             info.issue_url = obj.get_string_member_with_default ("issue-url", info.issue_url);
