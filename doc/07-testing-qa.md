@@ -6,9 +6,13 @@ meson test -C build
 ```
 
 Tests:
-- `tag-roundtrip`: writes and re-reads tags on a synthetic MP3; checks
-  dirty/revert logic (`tests/tag-roundtrip.vala`; no GTK needed).
-- `validate-desktop`, `validate-metainfo` (if the tools are installed).
+- `tag-roundtrip`: writes and re-reads tags (incl. COMM comment) on a
+  synthetic MP3; checks dirty/revert logic; cover round-trip, unloaded-cover
+  safety and image limits (`tests/tag-roundtrip.vala`; no GTK needed).
+- `validate-desktop`, `validate-metainfo`.
+
+Full manual plan with fixtures: [10-test-plan.md](10-test-plan.md).
+Generate fixtures with `tests/fixtures/make-fixtures.sh` (needs ffmpeg).
 
 Manual checklist:
 - [ ] Launch with no args: empty state shows
