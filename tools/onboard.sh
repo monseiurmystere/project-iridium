@@ -30,7 +30,7 @@ if [[ "${ID:-}" != "fedora" && "${ID_LIKE:-}" != *fedora* ]]; then
     exit 2
 fi
 
-BASE_PKGS=(vala meson ninja-build gcc gtk4-devel libadwaita-devel
+BASE_PKGS=(vala valadoc meson ninja-build gcc gtk4-devel libadwaita-devel
     blueprint-compiler taglib-devel json-glib-devel gettext
     desktop-file-utils appstream flatpak-builder ffmpeg-free)
 # Encoders the fixture script needs. Fedora's ffmpeg-free qualifies.

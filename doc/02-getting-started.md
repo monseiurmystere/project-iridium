@@ -9,7 +9,7 @@ Fedora's; ports are requested in
 
 ```bash
 # Required: build and test.
-sudo dnf install vala meson ninja-build gcc gtk4-devel libadwaita-devel \
+sudo dnf install vala valadoc meson ninja-build gcc gtk4-devel libadwaita-devel \
   blueprint-compiler taglib-devel json-glib-devel gettext desktop-file-utils \
   appstream flatpak-builder ffmpeg-free
 
