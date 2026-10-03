@@ -45,7 +45,8 @@ void test_revert () {
     assert (!audio.dirty);
 }
 
-const string PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
+const string PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk"
+    + "YPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
 
 string make_mp3 () throws Error {
     string path;
