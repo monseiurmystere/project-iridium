@@ -1,5 +1,12 @@
 namespace Iridium.TagReader {
-    /** Reads the tag of the audio file at @path using TagLib. */
+    /**
+     * Reads the tag of the audio file at @path using TagLib.
+     *
+     * TagLib hands out strings owned by the file object, so they are copied
+     * into the AudioTag immediately and released with free_strings() before
+     * the file is closed; keeping them longer would be a use-after-free.
+     * Throws TagError.OPEN for anything TagLib rejects.
+     */
     public AudioTag read (string path) throws TagError {
         var file = new TagLib.File (path);
         if (!file.is_valid ()) {
@@ -19,7 +26,11 @@ namespace Iridium.TagReader {
         return tag;
     }
 
-    /** Reads the embedded cover of @path, or null if there is none. */
+    /**
+     * Reads the embedded cover of @path via the complex-property helper,
+     * or null if there is none. The returned bytes are copied out of TagLib
+     * before its structures are freed, so they outlive the file object.
+     */
     public CoverArt? read_cover (string path) throws TagError {
         var file = new TagLib.File (path);
         if (!file.is_valid ()) {
@@ -31,6 +42,7 @@ namespace Iridium.TagReader {
         return data != null ? new CoverArt (data, mime ?? "application/octet-stream") : null;
     }
 
+    /** TagLib returns null for missing text fields; the model uses "". */
     private string nz (string? s) {
         return s ?? "";
     }

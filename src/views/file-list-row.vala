@@ -1,3 +1,8 @@
+/**
+ * One recycled sidebar row. Binds its labels to an AudioFile's display
+ * properties and the dirty dot to its dirty flag; unbinds everything when
+ * released (null) so a recycled widget never shows stale data.
+ */
 [GtkTemplate (ui = "/co/tylr/Iridium/views/file-list-row.ui")]
 public class Iridium.FileListRow : Gtk.Box {
     [GtkChild] private unowned Gtk.Label title_label;
@@ -7,6 +12,10 @@ public class Iridium.FileListRow : Gtk.Box {
     private Binding[] bindings = {};
     private AudioFile? _file = null;
 
+    /**
+     * The file shown, or null to release. Rebinding unbinds the previous
+     * file first; SYNC_CREATE paints immediately without waiting for notify.
+     */
     public AudioFile? file {
         get { return _file; }
         set {

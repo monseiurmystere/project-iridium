@@ -5,15 +5,24 @@
  * above; full paths appear in DEBUG messages.
  */
 namespace Iridium.AppLogger {
+    /** Journal SYSLOG_IDENTIFIER shared by every entry we emit. */
     public const string IDENT = "co.tylr.Iridium";
     private bool verbose = false;
 
+    /**
+     * Installs the log writer. Call once at startup. DEBUG output stays off
+     * unless @debug (from --verbose) or G_MESSAGES_DEBUG is set.
+     */
     public void init (bool debug) {
         verbose = debug || Environment.get_variable ("G_MESSAGES_DEBUG") != null;
         Log.set_writer_func (write);
     }
 
-    /** Records a user-visible action (INFO). */
+    /**
+     * Records a user-visible action (INFO) with IRIDIUM_ACTION set to @name.
+     * Keep messages translatable-neutral: logs stay English by design so
+     * journal queries keep working across locales.
+     */
     public void action (string name, string detail = "") {
         log_structured (IDENT, LogLevelFlags.LEVEL_INFO,
             "SYSLOG_IDENTIFIER", IDENT,
@@ -21,7 +30,11 @@ namespace Iridium.AppLogger {
             "MESSAGE", "%s", detail == "" ? name : "%s: %s".printf (name, detail));
     }
 
-    /** Records a failure (WARNING). @path is reduced to its basename. */
+    /**
+     * Records a failure (WARNING) with CODE and IRIDIUM_FILE fields.
+     * path is reduced to its basename: full paths only ever reach the
+     * journal at DEBUG level (see debug_message below).
+     */
     public void error (string code, string message, string? path = null) {
         log_structured (IDENT, LogLevelFlags.LEVEL_WARNING,
             "SYSLOG_IDENTIFIER", IDENT,
@@ -38,6 +51,12 @@ namespace Iridium.AppLogger {
             "MESSAGE", "%s", message);
     }
 
+    /**
+     * Single writer for all GLib logging. DEBUG is dropped unless verbose;
+     * everything else goes to the journal when one is reachable, and is
+     * mirrored to stderr when attached to a terminal (development) or when
+     * the journal write was not handled (sandbox fallback).
+     */
     private LogWriterOutput write (LogLevelFlags level, LogField[] fields) {
         if ((level & LogLevelFlags.LEVEL_DEBUG) != 0 && !verbose) {
             return LogWriterOutput.HANDLED;

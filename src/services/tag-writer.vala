@@ -1,5 +1,12 @@
 namespace Iridium.TagWriter {
-    /** Writes the working tag of @audio to disk, then marks it saved. */
+    /**
+     * Writes the working tag of @audio to disk, then marks it saved.
+     *
+     * The picture is touched only when the cover was loaded and changed;
+     * otherwise embedded art is preserved byte-for-byte. A format that
+     * rejects pictures fails with TagError.SAVE and the file stays dirty.
+     * Throws TagError.OPEN when the file cannot be opened for writing.
+     */
     public void write (AudioFile audio) throws TagError {
         var file = new TagLib.File (audio.path);
         if (!file.is_valid ()) {
@@ -24,6 +31,7 @@ namespace Iridium.TagWriter {
         audio.mark_saved ();
     }
 
+    /** Sets the single front cover, or clears all pictures when null. */
     private bool write_cover (TagLib.File file, CoverArt? cover) {
         return cover != null
             ? IridiumTagLib.set_picture (file, cover.data, cover.mime_type)

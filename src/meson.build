@@ -41,6 +41,9 @@ ui_sources = files(
   'views/save-bar.vala',
 )
 
+# Blueprint sources compile to .ui next to this file's build dir output; the
+# gresource below and the POT extractor both consume them from there.
+# output: '.' preserves each file's relative path (views/foo.blp -> views/foo.ui).
 blueprints = custom_target('blueprints',
   input: files(
     'widgets/cover-art-widget.blp',
@@ -60,6 +63,8 @@ blueprints = custom_target('blueprints',
   ],
 )
 
+# source_dir points at the build dir so the generated .ui files resolve;
+# source-tree files (about.json via ../data alias) resolve relative to the xml.
 resources = gnome.compile_resources('iridium-resources',
   'iridium.gresource.xml',
   dependencies: blueprints,
@@ -72,6 +77,7 @@ iridium_deps = [
   dependency('libadwaita-1', version: '>= 1.5'),
   dependency('taglib_c'),
   dependency('json-glib-1.0', version: '>= 1.6'),
+  # posix has no pkg-config file; the Vala compiler locates its own binding.
   meson.get_compiler('vala').find_library('posix'),
 ]
 

@@ -1,4 +1,5 @@
 namespace Iridium.Dialogs {
+    /** Decoded About content: display strings from JSON, identity from Config. */
     private struct AboutInfo {
         string app_name;
         string developer;
@@ -8,6 +9,10 @@ namespace Iridium.Dialogs {
         string issue_url;
     }
 
+    /**
+     * Presents the About dialog. Empty website/issue-url stay hidden rather
+     * than showing blank rows.
+     */
     public void show_about (Gtk.Window? parent) {
         var info = load_about_info ();
         var dialog = new Adw.AboutDialog () {
@@ -29,7 +34,9 @@ namespace Iridium.Dialogs {
     }
 
     /**
-     * Reads data/about.json from GResources; translated fallback on failure.
+     * Reads data/about.json from GResources and translates its display
+     * strings; falls back to translated hardcoded defaults when the resource
+     * is missing or corrupt (logged, never silent).
      * The _() literals below double as xgettext extraction hints: keep them
      * in sync with data/about.json.
      */

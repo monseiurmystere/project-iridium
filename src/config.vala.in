@@ -1,6 +1,11 @@
+/** Build-injected constants (values substituted by Meson at setup time). */
 namespace Iridium.Config {
+    /** Project version from the top-level meson.build. */
     public const string VERSION = "@VERSION@";
+    /** D-Bus application ID, icon name and GResource prefix base. */
     public const string APP_ID = "co.tylr.Iridium";
+    /** Gettext catalog name for bindtextdomain/textdomain. */
     public const string GETTEXT_PACKAGE = "iridium";
+    /** Absolute install path of the compiled .mo catalogs. */
     public const string LOCALEDIR = "@LOCALEDIR@";
 }

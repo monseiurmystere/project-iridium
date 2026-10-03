@@ -1,4 +1,8 @@
-/** Writes tags to a synthetic MP3 and reads them back. */
+/**
+ * Tag round-trip on a synthetic MP3: three bare MPEG frames are enough for
+ * TagLib to accept the file and attach an ID3v2 tag on save (no real audio
+ * needed). Covers Unicode, COMM comment, dirty tracking and mark_saved.
+ */
 void test_roundtrip () {
     string path;
     try {
@@ -37,6 +41,7 @@ void test_roundtrip () {
     }
 }
 
+/** Dirty flag set on edit and cleared by revert, without touching disk. */
 void test_revert () {
     var audio = new Iridium.AudioFile ("/tmp/x.mp3", new Iridium.AudioTag ());
     audio.tag.title = "changed";
@@ -45,9 +50,11 @@ void test_revert () {
     assert (!audio.dirty);
 }
 
+/** 1x1 PNG used as the cover fixture for the cover tests below. */
 const string PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk"
     + "YPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==";
 
+/** Fresh synthetic MP3 per test (see test_roundtrip for the format). */
 string make_mp3 () throws Error {
     string path;
     FileUtils.close (FileUtils.open_tmp ("iridium-XXXXXX.mp3", out path));
@@ -63,10 +70,15 @@ string make_mp3 () throws Error {
     return path;
 }
 
+/** CoverArt wrapping the PNG fixture above. */
 Iridium.CoverArt png_cover () {
     return new Iridium.CoverArt (new Bytes (Base64.decode (PNG_B64)), "image/png");
 }
 
+/**
+ * Cover write/read byte-equality, removal, and revert-then-remove.
+ * Proves the C helper and the dirty logic agree in both directions.
+ */
 void test_cover_roundtrip () {
     try {
         var path = make_mp3 ();
@@ -98,6 +110,10 @@ void test_cover_roundtrip () {
     }
 }
 
+/**
+ * Safety net for lazy covers: a file whose cover was never loaded must keep
+ * its pictures when saved. Guards TagWriter's cover_changed condition.
+ */
 void test_unloaded_cover_untouched () {
     try {
         var path = make_mp3 ();
@@ -117,6 +133,7 @@ void test_unloaded_cover_untouched () {
     }
 }
 
+/** Accepts a PNG, rejects a text file and an over-limit file. */
 void test_cover_service_limits () {
     try {
         string path;

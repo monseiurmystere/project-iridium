@@ -1,4 +1,8 @@
-/** Window shell: owns the file store, actions and selection wiring. */
+/**
+ * Window shell: owns the file store, all win.* actions and the selection
+ * wiring between sidebar, editor and save bar. Views stay passive — every
+ * service call (scan, read, write) is initiated here.
+ */
 [GtkTemplate (ui = "/co/tylr/Iridium/views/iridium-window.ui")]
 public class Iridium.Window : Adw.ApplicationWindow {
     [GtkChild] private unowned Adw.ToastOverlay toasts;
@@ -21,6 +25,8 @@ public class Iridium.Window : Adw.ApplicationWindow {
         { "remove-cover", on_remove_cover },
     };
 
+    // Custom widget types must be registered before this template is parsed,
+    // otherwise the .ui lookup fails. Each composite widget needs one line.
     static construct {
         typeof (EmptyStateView).ensure ();
         typeof (SidebarView).ensure ();
@@ -28,6 +34,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         typeof (SaveBar).ensure ();
     }
 
+    /** Creates the window for @app; widgets come from the .ui template. */
     public Window (Gtk.Application app) {
         Object (application: app);
     }
@@ -44,10 +51,19 @@ public class Iridium.Window : Adw.ApplicationWindow {
         ((Gtk.Widget) this).add_controller (drop);
     }
 
+    /**
+     * Entry point for every open path (dialog, drop, CLI). Fire-and-forget:
+     * completion surfaces as new rows; failures as toasts (see scan).
+     */
     public void add_files (File[] files) {
         scan.begin (files);
     }
 
+    /**
+     * Runs the scan, then swaps the empty state for the main view once at
+     * least one file exists. A partial failure still shows the files that
+     * did load, plus a counted toast — never a bare error.
+     */
     private async void scan (File[] files) {
         var result = yield FileScanner.scan (files, store);
         AppLogger.action ("scan", "added=%u failed=%u".printf (result.added, result.failed));
@@ -60,6 +76,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         }
     }
 
+    /** Accepts file drops anywhere on the window (same path as dialogs). */
     private bool on_drop (Value value, double x, double y) {
         var list = (Gdk.FileList) value.get_boxed ();
         File[] files = {};
@@ -71,6 +88,11 @@ public class Iridium.Window : Adw.ApplicationWindow {
         return true;
     }
 
+    /**
+     * Switches selection. The previous file's notify handler is disconnected
+     * and its binding unbound first — without this, edits to a deselected
+     * file would keep driving this window's save bar and actions.
+     */
     private void on_file_selected (AudioFile? file) {
         if (current != null && dirty_handler != 0) {
             current.disconnect (dirty_handler);
@@ -92,6 +114,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         update_actions ();
     }
 
+    /** Enables actions from selection state; called on every dirty change. */
     private void update_actions () {
         var dirty = current != null && current.dirty;
         ((SimpleAction) lookup_action ("save")).set_enabled (dirty);
@@ -101,6 +124,11 @@ public class Iridium.Window : Adw.ApplicationWindow {
             current != null && current.cover != null);
     }
 
+    /**
+     * Lazy cover load: once per file, on first selection. A failed read is
+     * logged and cached as "no cover" so selection never throws and the
+     * retry happens only on the next run, not on every click.
+     */
     private void ensure_cover (AudioFile? file) {
         if (file == null || file.cover_loaded) {
             return;
@@ -117,6 +145,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         change_cover.begin ();
     }
 
+    /** Validates and stages the picked image; saving happens via win.save. */
     private async void change_cover () {
         var image = yield Dialogs.pick_image (this);
         if (image == null || current == null) {
@@ -132,6 +161,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         }
     }
 
+    /** Stages cover removal; saving happens via win.save. */
     private void on_remove_cover () {
         if (current == null) {
             return;
@@ -149,6 +179,8 @@ public class Iridium.Window : Adw.ApplicationWindow {
         pick_input.begin (true);
     }
 
+    // Named pick_input (not pick): Gtk.Widget.pick is an inherited method and
+    // Vala warns when a subclass member hides it without the `new' keyword.
     private async void pick_input (bool folder) {
         var files = folder ? yield Dialogs.pick_folder (this)
                            : yield Dialogs.pick_files (this);
@@ -159,6 +191,10 @@ public class Iridium.Window : Adw.ApplicationWindow {
         }
     }
 
+    /**
+     * Writes the current file. On failure the working tag is untouched and
+     * the file stays dirty, so the user can fix the cause and retry.
+     */
     private void on_save () {
         if (current == null) {
             return;
@@ -173,6 +209,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         }
     }
 
+    /** Restores on-disk state into the working tag and refreshes the editor. */
     private void on_revert () {
         if (current == null) {
             return;
@@ -182,6 +219,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         AppLogger.action ("revert", current.basename);
     }
 
+    /** Shows a transient message; every user-facing failure ends here. */
     private void toast (string message) {
         toasts.add_toast (new Adw.Toast (message));
     }

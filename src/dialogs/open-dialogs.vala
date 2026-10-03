@@ -1,3 +1,8 @@
+/**
+ * Thin wrappers over Gtk.FileDialog. Each returns an empty result (not an
+ * error) when dismissed, so callers only handle the chosen-files case.
+ * Dismissals are logged at DEBUG for troubleshooting open flows.
+ */
 namespace Iridium.Dialogs {
     /** Asks for audio files. Returns an empty array if dismissed. */
     public async File[] pick_files (Gtk.Window parent) {

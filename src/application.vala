@@ -1,4 +1,10 @@
+/**
+ * The application: locale and logging init, global actions (about, quit)
+ * with accelerators, and single-window management. File opens from the CLI,
+ * drag-and-drop handoff or "Open With" all funnel into Window.add_files.
+ */
 public class Iridium.Application : Adw.Application {
+    /** Builds the app: ID, Open handling, resource path and CLI options. */
     public Application () {
         Object (
             application_id: Config.APP_ID,
@@ -10,11 +16,20 @@ public class Iridium.Application : Adw.Application {
         handle_local_options.connect (on_local_options);
     }
 
+    /**
+     * Handles --verbose before GTK starts. Returning -1 continues normal
+     * startup; the logger must be installed this early so app-start is
+     * captured even in debug runs.
+     */
     private int on_local_options (VariantDict options) {
         AppLogger.init (options.contains ("verbose"));
         return -1;
     }
 
+    /**
+     * One-time setup: locale for translations, UTF-8 ID3v2 default (so
+     * Unicode tags survive a save), app actions and the startup log entry.
+     */
     protected override void startup () {
         base.startup ();
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -41,10 +56,12 @@ public class Iridium.Application : Adw.Application {
         AppLogger.action ("app-start", "version=" + Config.VERSION);
     }
 
+    /** No-arg launch (or re-activate): present the single window. */
     protected override void activate () {
         window ().present ();
     }
 
+    /** Files from argv or Open-With: queue them, then present. */
     protected override void open (File[] files, string hint) {
         var win = window ();
         win.add_files (files);
