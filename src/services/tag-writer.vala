@@ -3,7 +3,7 @@ namespace Iridium.TagWriter {
     public void write (AudioFile audio) throws TagError {
         var file = new TagLib.File (audio.path);
         if (!file.is_valid ()) {
-            throw new TagError.OPEN ("Cannot open %s", audio.basename);
+            throw new TagError.OPEN (_("Cannot open %s"), audio.basename);
         }
         unowned TagLib.Tag t = file.tag;
         var tag = audio.tag;
@@ -15,10 +15,10 @@ namespace Iridium.TagWriter {
         t.year = tag.year;
         t.track = tag.track;
         if (audio.cover_changed && !write_cover (file, audio.cover)) {
-            throw new TagError.SAVE ("%s does not support cover art", audio.basename);
+            throw new TagError.SAVE (_("%s does not support cover art"), audio.basename);
         }
         if (!file.save ()) {
-            throw new TagError.SAVE ("Cannot save %s (is it read-only?)",
+            throw new TagError.SAVE (_("Cannot save %s (is it read-only?)"),
                                      audio.basename);
         }
         audio.mark_saved ();

@@ -28,12 +28,16 @@ namespace Iridium.Dialogs {
         dialog.present (parent);
     }
 
-    /** Reads data/about.json from GResources; hardcoded fallback on failure. */
+    /**
+     * Reads data/about.json from GResources; translated fallback on failure.
+     * The _() literals below double as xgettext extraction hints: keep them
+     * in sync with data/about.json.
+     */
     private AboutInfo load_about_info () {
         var info = AboutInfo () {
-            app_name = "Iridium",
-            developer = "Tyler",
-            comments = "Edit audio file tags",
+            app_name = _("Iridium"),
+            developer = _("Tyler"),
+            comments = _("Edit audio file tags"),
             copyright = "",
             website = "",
             issue_url = ""
@@ -44,9 +48,9 @@ namespace Iridium.Dialogs {
             var parser = new Json.Parser ();
             parser.load_from_data ((string) bytes.get_data (), (ssize_t) bytes.length);
             var obj = parser.get_root ().get_object ();
-            info.app_name = obj.get_string_member_with_default ("application-name", info.app_name);
-            info.developer = obj.get_string_member_with_default ("developer-name", info.developer);
-            info.comments = obj.get_string_member_with_default ("comments", info.comments);
+            info.app_name = _(obj.get_string_member_with_default ("application-name", "Iridium"));
+            info.developer = _(obj.get_string_member_with_default ("developer-name", "Tyler"));
+            info.comments = _(obj.get_string_member_with_default ("comments", "Edit audio file tags"));
             info.copyright = obj.get_string_member_with_default ("copyright", info.copyright);
             info.website = obj.get_string_member_with_default ("website", info.website);
             info.issue_url = obj.get_string_member_with_default ("issue-url", info.issue_url);

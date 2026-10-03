@@ -55,7 +55,8 @@ public class Iridium.Window : Adw.ApplicationWindow {
             root_stack.visible_child_name = "main";
         }
         if (result.failed > 0) {
-            toast ("Could not read %u file(s)".printf (result.failed));
+            toast (ngettext ("Could not read %u file", "Could not read %u files",
+                               result.failed).printf (result.failed));
         }
     }
 
@@ -165,7 +166,7 @@ public class Iridium.Window : Adw.ApplicationWindow {
         try {
             TagWriter.write (current);
             AppLogger.action ("save", current.basename);
-            toast ("Saved %s".printf (current.basename));
+            toast (_("Saved %s").printf (current.basename));
         } catch (TagError e) {
             AppLogger.error ("tag-save-failed", e.message, current.path);
             toast (e.message);

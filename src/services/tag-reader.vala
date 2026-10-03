@@ -3,7 +3,7 @@ namespace Iridium.TagReader {
     public AudioTag read (string path) throws TagError {
         var file = new TagLib.File (path);
         if (!file.is_valid ()) {
-            throw new TagError.OPEN ("Cannot read tags from %s",
+            throw new TagError.OPEN (_("Cannot read tags from %s"),
                                      Path.get_basename (path));
         }
         unowned TagLib.Tag t = file.tag;
@@ -23,7 +23,7 @@ namespace Iridium.TagReader {
     public CoverArt? read_cover (string path) throws TagError {
         var file = new TagLib.File (path);
         if (!file.is_valid ()) {
-            throw new TagError.OPEN ("Cannot read cover from %s",
+            throw new TagError.OPEN (_("Cannot read cover from %s"),
                                      Path.get_basename (path));
         }
         string? mime;

@@ -6,19 +6,19 @@ namespace Iridium.CoverArtService {
         try {
             var info = file.query_info ("standard::size", FileQueryInfoFlags.NONE);
             if (info.get_size () > MAX_BYTES) {
-                throw new TagError.COVER ("Image is larger than 10 MB");
+                throw new TagError.COVER (_("Image is larger than 10 MB"));
             }
             var data = file.load_bytes (null, null);
             var type = ContentType.guess (null, data.get_data (), null);
             if (type != "image/jpeg" && type != "image/png") {
-                throw new TagError.COVER ("Only JPEG and PNG images are supported");
+                throw new TagError.COVER (_("Only JPEG and PNG images are supported"));
             }
             return new CoverArt (data, type);
         } catch (Error e) {
             if (e is TagError) {
                 throw (TagError) e;
             }
-            throw new TagError.COVER ("Cannot read image: %s", e.message);
+            throw new TagError.COVER (_("Cannot read image: %s"), e.message);
         }
     }
 }
