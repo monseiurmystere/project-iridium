@@ -9,5 +9,6 @@ Risks.
 | [cover-art](cover-art.md) | Done |
 | [batch-edit](batch-edit.md) | Idea, not planned |
 | [app-icon](app-icon.md) | Placeholder in use |
+| [translations](translations.md) | In progress (drafts need review) |
 
 Status values: Idea, Planned, In progress, Done.
