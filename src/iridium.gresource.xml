@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/co/tylr/Iridium">
+    <file>views/iridium-window.ui</file>
+    <file>views/empty-state-view.ui</file>
+    <file>views/sidebar-view.ui</file>
+    <file>views/file-list-row.ui</file>
+    <file>views/tag-editor-view.ui</file>
+    <file>views/tag-basic-group.ui</file>
+    <file>views/tag-details-group.ui</file>
+    <file>views/save-bar.ui</file>
+  </gresource>
+</gresources>
