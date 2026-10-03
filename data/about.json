@@ -1,8 +1,8 @@
 {
-  "application-name": "Iridium",
-  "developer-name": "Tyler",
-  "comments": "Edit audio file tags",
-  "copyright": "© 2026 Tyler",
+  "application-name": "Codename: Iridium",
+  "developer-name": "Ashleigh Clark",
+  "comments": "A simple application designed to edit audio information for supported files. Album art is also supported here.",
+  "copyright": "© 2026 Ashleigh Clark",
   "website": "",
   "issue-url": ""
 }
