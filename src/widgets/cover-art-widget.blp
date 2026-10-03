@@ -1,0 +1,56 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumCoverArtWidget: Adw.Bin {
+  child: Gtk.Box {
+    orientation: vertical;
+    spacing: 12;
+    halign: center;
+
+    Gtk.Stack stack {
+      Gtk.StackPage {
+        name: "picture";
+
+        child: Gtk.Picture picture {
+          content-fit: contain;
+          width-request: 192;
+          height-request: 192;
+
+          styles [
+            "card",
+          ]
+        };
+      }
+
+      Gtk.StackPage {
+        name: "empty";
+
+        child: Gtk.Image {
+          icon-name: "image-x-generic-symbolic";
+          pixel-size: 96;
+          width-request: 192;
+          height-request: 192;
+
+          styles [
+            "dim-label",
+          ]
+        };
+      }
+    }
+
+    Gtk.Box {
+      halign: center;
+      spacing: 6;
+
+      Gtk.Button {
+        label: _("Change…");
+        action-name: "win.change-cover";
+      }
+
+      Gtk.Button {
+        label: _("Remove");
+        action-name: "win.remove-cover";
+      }
+    }
+  };
+}

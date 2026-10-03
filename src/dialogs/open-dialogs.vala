@@ -30,4 +30,21 @@ namespace Iridium.Dialogs {
         }
         return files;
     }
+
+    /** Asks for a JPEG or PNG image. Returns null if dismissed. */
+    public async File? pick_image (Gtk.Window parent) {
+        var filter = new Gtk.FileFilter () { name = "Images (JPEG, PNG)" };
+        filter.add_mime_type ("image/jpeg");
+        filter.add_mime_type ("image/png");
+        var filters = new ListStore (typeof (Gtk.FileFilter));
+        filters.append (filter);
+
+        var dialog = new Gtk.FileDialog () { title = "Choose Cover Image", filters = filters };
+        try {
+            return yield dialog.open (parent, null);
+        } catch (Error e) {
+            AppLogger.debug_message ("pick-image dismissed: " + e.message);
+            return null;
+        }
+    }
 }
