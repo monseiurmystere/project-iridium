@@ -10,5 +10,6 @@ Risks.
 | [batch-edit](batch-edit.md) | Idea, not planned |
 | [app-icon](app-icon.md) | Placeholder in use |
 | [translations](translations.md) | In progress (drafts need review) |
+| [portable-onboarding](portable-onboarding.md) | Idea (Fedora script exists; ports wanted) |
 
 Status values: Idea, Planned, In progress, Done.
