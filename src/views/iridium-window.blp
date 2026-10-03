@@ -1,0 +1,82 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumWindow: Adw.ApplicationWindow {
+  default-width: 960;
+  default-height: 640;
+  title: "Iridium";
+
+  content: Adw.ToastOverlay toasts {
+    Gtk.Stack root_stack {
+      Gtk.StackPage {
+        name: "empty";
+
+        child: $IridiumEmptyStateView {};
+      }
+
+      Gtk.StackPage {
+        name: "main";
+
+        child: Adw.NavigationSplitView {
+          sidebar: Adw.NavigationPage {
+            title: _("Files");
+
+            child: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {
+                [start]
+                Gtk.Button {
+                  icon-name: "document-open-symbolic";
+                  tooltip-text: _("Open Files");
+                  action-name: "win.open-files";
+                }
+
+                [end]
+                Gtk.MenuButton {
+                  icon-name: "open-menu-symbolic";
+                  menu-model: primary_menu;
+                  primary: true;
+                }
+              }
+
+              content: $IridiumSidebarView sidebar {};
+            };
+          };
+
+          content: Adw.NavigationPage {
+            title: _("Tags");
+
+            child: Adw.ToolbarView {
+              [top]
+              Adw.HeaderBar {}
+
+              content: $IridiumTagEditorView editor {};
+
+              [bottom]
+              $IridiumSaveBar save_bar {}
+            };
+          };
+        };
+      }
+    }
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("Open Folder…");
+      action: "win.open-folder";
+    }
+
+    item {
+      label: _("About Iridium");
+      action: "app.about";
+    }
+
+    item {
+      label: _("Quit");
+      action: "app.quit";
+    }
+  }
+}

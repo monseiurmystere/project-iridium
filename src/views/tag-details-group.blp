@@ -1,0 +1,20 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumTagDetailsGroup: Adw.PreferencesGroup {
+  title: _("Details");
+
+  $IridiumTagFieldRow year_row {
+    title: _("Year");
+    input-purpose: digits;
+  }
+
+  $IridiumTagFieldRow track_row {
+    title: _("Track");
+    input-purpose: digits;
+  }
+
+  $IridiumTagFieldRow comment_row {
+    title: _("Comment");
+  }
+}

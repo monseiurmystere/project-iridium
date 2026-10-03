@@ -1,0 +1,14 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumSidebarView: Adw.Bin {
+  child: Gtk.ScrolledWindow {
+    hscrollbar-policy: never;
+
+    Gtk.ListView list_view {
+      styles [
+        "navigation-sidebar",
+      ]
+    }
+  };
+}

@@ -1,0 +1,37 @@
+using Gtk 4.0;
+
+template $IridiumFileListRow: Gtk.Box {
+  spacing: 8;
+  margin-top: 6;
+  margin-bottom: 6;
+
+  Gtk.Box {
+    orientation: vertical;
+    hexpand: true;
+
+    Gtk.Label title_label {
+      halign: start;
+      ellipsize: end;
+    }
+
+    Gtk.Label subtitle_label {
+      halign: start;
+      ellipsize: end;
+
+      styles [
+        "dim-label",
+        "caption",
+      ]
+    }
+  }
+
+  Gtk.Image dirty_dot {
+    icon-name: "media-record-symbolic";
+    visible: false;
+    tooltip-text: _("Unsaved changes");
+
+    styles [
+      "accent",
+    ]
+  }
+}

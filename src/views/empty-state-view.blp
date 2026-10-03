@@ -1,0 +1,40 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumEmptyStateView: Adw.Bin {
+  child: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
+
+    content: Adw.StatusPage {
+      icon-name: "audio-x-generic-symbolic";
+      title: _("No Files Open");
+      description: _("Open audio files or drop them here to edit their tags.");
+
+      child: Gtk.Box {
+        orientation: vertical;
+        spacing: 12;
+        halign: center;
+
+        Gtk.Button {
+          label: _("Open Files…");
+          action-name: "win.open-files";
+
+          styles [
+            "suggested-action",
+            "pill",
+          ]
+        }
+
+        Gtk.Button {
+          label: _("Open Folder…");
+          action-name: "win.open-folder";
+
+          styles [
+            "pill",
+          ]
+        }
+      };
+    };
+  };
+}

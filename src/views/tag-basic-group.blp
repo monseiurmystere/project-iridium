@@ -1,0 +1,22 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumTagBasicGroup: Adw.PreferencesGroup {
+  title: _("Basic");
+
+  $IridiumTagFieldRow title_row {
+    title: _("Title");
+  }
+
+  $IridiumTagFieldRow artist_row {
+    title: _("Artist");
+  }
+
+  $IridiumTagFieldRow album_row {
+    title: _("Album");
+  }
+
+  $IridiumTagFieldRow genre_row {
+    title: _("Genre");
+  }
+}

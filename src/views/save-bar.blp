@@ -1,0 +1,35 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumSaveBar: Adw.Bin {
+  child: Gtk.Revealer revealer {
+    transition-type: slide_up;
+
+    child: Gtk.ActionBar {
+      [start]
+      Gtk.Label {
+        label: _("Unsaved changes");
+
+        styles [
+          "dim-label",
+        ]
+      }
+
+      [end]
+      Gtk.Button {
+        label: _("Save");
+        action-name: "win.save";
+
+        styles [
+          "suggested-action",
+        ]
+      }
+
+      [end]
+      Gtk.Button {
+        label: _("Revert");
+        action-name: "win.revert";
+      }
+    };
+  };
+}

@@ -1,0 +1,10 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $IridiumTagEditorView: Adw.Bin {
+  child: Adw.PreferencesPage {
+    $IridiumTagBasicGroup basic {}
+
+    $IridiumTagDetailsGroup details {}
+  };
+}
