@@ -28,7 +28,7 @@ First-time setup on non-Fedora distributions, reusing the structure of
 | flatpak-builder | | | |
 | clang-tools-extra libvala-devel | | | |
 | glibc-langpack-* | | | |
-| ffmpeg (RPM Fusion) | | | |
+| ffmpeg (any build with libmp3lame; Fedora's -free qualifies) | | | |
 
 ## Acceptance
 Fresh install of the target distro + ported script: `meson setup build`,

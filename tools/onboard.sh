@@ -32,7 +32,9 @@ fi
 
 BASE_PKGS=(vala meson ninja-build gcc gtk4-devel libadwaita-devel
     blueprint-compiler taglib-devel json-glib-devel gettext
-    desktop-file-utils appstream flatpak-builder)
+    desktop-file-utils appstream flatpak-builder ffmpeg-free)
+# Encoders the fixture script needs. Fedora's ffmpeg-free qualifies.
+NEEDED_ENCODERS=(libmp3lame aac flac libopus)
 LINT_PKGS=(clang-tools-extra libvala-devel)
 LOCALE_PKGS=(glibc-langpack-fr glibc-langpack-es glibc-langpack-de)
 VALA_LINT_TAG="0.1.0"
@@ -121,29 +123,40 @@ if [[ "$LINT" == "1" ]]; then
     fi
 fi
 
-if [[ "$RPMFUSION" == "1" ]]; then
-    say "== RPM Fusion + ffmpeg (fixtures only) =="
-    if rpm -q rpmfusion-free-release >/dev/null 2>&1; then
-        say "OK: rpmfusion-free-release"
-    elif [[ "$CHECK" == "1" ]]; then
-        need "rpmfusion-free-release"
-    else
-        sudo -v
-        sudo dnf install -y \
-            "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
-    fi
-    check_pkgs ffmpeg
-    if [[ "${#missing_dnf[@]}" -gt 0 ]]; then
+say "== ffmpeg encoder support (fixtures) =="
+ffmpeg_has_encoders() {
+    command -v ffmpeg >/dev/null || return 1
+    local encoders enc
+    # Capture first: grep -q closes the pipe early, tripping pipefail via SIGPIPE.
+    encoders="$(ffmpeg -hide_banner -encoders 2>/dev/null)"
+    for enc in "${NEEDED_ENCODERS[@]}"; do
+        grep -q "$enc" <<<"$encoders" || return 1
+    done
+}
+if ffmpeg_has_encoders; then
+    say "OK: ffmpeg (system encoders verified)"
+elif [[ "$RPMFUSION" == "1" ]]; then
+    say "== RPM Fusion fallback: full ffmpeg =="
+    if ! rpm -q rpmfusion-free-release >/dev/null 2>&1; then
         if [[ "$CHECK" == "1" ]]; then
-            need "dnf packages: ${missing_dnf[*]}"
+            need "rpmfusion-free-release"
         else
             sudo -v
-            sudo dnf install -y ffmpeg
-            missing_dnf=()
+            sudo dnf install -y \
+                "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
         fi
-    else
-        say "OK: ffmpeg"
     fi
+    if [[ "$CHECK" == "0" ]]; then
+        sudo -v
+        sudo dnf install -y ffmpeg
+        ffmpeg_has_encoders || { say "GAP: RPM Fusion ffmpeg still lacks encoders"; exit 1; }
+        say "OK: ffmpeg (RPM Fusion encoders verified)"
+    fi
+elif [[ "$CHECK" == "1" ]]; then
+    need "ffmpeg with encoders: ${NEEDED_ENCODERS[*]} (--with-rpmfusion for the fallback)"
+else
+    say "GAP: system ffmpeg lacks encoders (${NEEDED_ENCODERS[*]}); re-run with --with-rpmfusion"
+    exit 1
 fi
 
 if [[ "$LOCALES" == "1" ]]; then

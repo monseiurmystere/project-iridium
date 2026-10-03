@@ -11,7 +11,7 @@ Fedora's; ports are requested in
 # Required: build and test.
 sudo dnf install vala meson ninja-build gcc gtk4-devel libadwaita-devel \
   blueprint-compiler taglib-devel json-glib-devel gettext desktop-file-utils \
-  appstream flatpak-builder
+  appstream flatpak-builder ffmpeg-free
 
 # Lint (clang-tidy) and the vala-lint source build:
 sudo dnf install clang-tools-extra libvala-devel
@@ -22,9 +22,11 @@ meson compile -C vala-lint/build && meson install -C vala-lint/build
 # Optional: translation test locales.
 sudo dnf install glibc-langpack-fr glibc-langpack-es glibc-langpack-de
 
-# Optional: ffmpeg for test fixtures (needs RPM Fusion, not in Fedora repos).
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install ffmpeg
+`ffmpeg` needs MP3/AAC/FLAC/Opus encoders; Fedora's `ffmpeg-free` qualifies
+(`make-fixtures.sh` verifies this up front). Only if it does not:
+
+```bash
+./tools/onboard.sh --with-rpmfusion
 ```
 
 ## Native build and run

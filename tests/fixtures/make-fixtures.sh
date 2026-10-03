@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Generates Iridium manual-test fixtures. See doc/10-test-plan.md.
 # Usage: make-fixtures.sh [OUTPUT_DIR] [--stress]
-# Requires: ffmpeg, ffprobe (optional: flac/m4a/opus encoders come with ffmpeg).
+# Requires: ffmpeg with libmp3lame, aac, flac and libopus encoders
+# (Fedora's ffmpeg-free qualifies; otherwise use tools/onboard.sh --with-rpmfusion).
 set -euo pipefail
 
 OUT="${1:-/tmp/iridium-fixtures}"
@@ -9,6 +10,17 @@ STRESS=0
 if [[ "${2:-}" == "--stress" ]]; then STRESS=1; fi
 
 command -v ffmpeg >/dev/null || { echo "error: ffmpeg is required" >&2; exit 1; }
+# Capture first: grep -q closes the pipe early, which trips pipefail via SIGPIPE.
+FFMPEG_ENCODERS="$(ffmpeg -hide_banner -encoders 2>/dev/null)"
+missing_enc=()
+for enc in libmp3lame aac flac libopus; do
+    grep -q "$enc" <<<"$FFMPEG_ENCODERS" || missing_enc+=("$enc")
+done
+if [[ "${#missing_enc[@]}" -gt 0 ]]; then
+    echo "error: ffmpeg lacks encoders: ${missing_enc[*]}" >&2
+    echo "Fedora: tools/onboard.sh --with-rpmfusion for the full build." >&2
+    exit 1
+fi
 
 rm -rf "$OUT"
 mkdir -p "$OUT/nested/a/b" "$OUT/images"

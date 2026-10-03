@@ -12,7 +12,7 @@ One command sets up everything (native build deps + GNOME Flatpak SDK):
 ```
 
 Opt-ins: `--with-lint` (clang-tidy, vala-lint built from source),
-`--with-rpmfusion` (ffmpeg, needed only for test fixtures),
+`--with-rpmfusion` (full ffmpeg fallback, only if system ffmpeg lacks encoders),
 `--with-locales` (French/Spanish/German test locales).
 `--check` verifies without changing anything; `--yes` skips prompts.
 Other distributions: follow the manual steps in

@@ -22,7 +22,7 @@ logging. Batch editing is out of scope (see
 
 ```bash
 meson setup build && meson compile -C build
-tests/fixtures/make-fixtures.sh /tmp/iridium-fixtures        # needs ffmpeg
+tests/fixtures/make-fixtures.sh /tmp/iridium-fixtures        # needs ffmpeg with encoders (checked up front)
 tests/fixtures/make-fixtures.sh /tmp/iridium-fixtures --stress  # +500 files
 ./build/src/iridium
 ```
