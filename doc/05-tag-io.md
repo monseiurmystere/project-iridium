@@ -12,6 +12,15 @@ Tags are read and written through TagLib's C API. Vala ships a binding
   `TagLib.Tag.free_strings()` is called.
 - Scanned extensions: mp3, flac, ogg, oga, opus, m4a (`file-scanner.vala`).
 
-The C API exposes only the common fields (no cover art, no per-frame access).
-Cover art would need TagLib's complex-property API or the C++ API through a
-wrapper; it is out of scope for v0.1.
+## Cover art
+
+Covers use TagLib's complex-property API (`PICTURE`, TagLib >= 2.0) through
+`src/c/taglib-picture.c` and `src/vapi/iridium-taglib.vapi`.
+
+- Read lazily when a file is selected (`TagReader.read_cover`); the first
+  embedded picture is shown.
+- Saving a changed cover replaces all pictures with a single front cover; an
+  unloaded or unchanged cover is never written (`AudioFile.cover_changed`).
+- `CoverArtService.load` accepts JPEG/PNG up to 10 MB, bytes kept as-is.
+- Formats that reject pictures fail the save with an error toast.
+- Other per-frame access is not exposed.

@@ -1,6 +1,6 @@
 # Cover art
 
-**Status:** In progress.
+**Status:** Done (v0.2).
 
 ## Goal
 Show, replace and remove the embedded front cover of the selected file.
@@ -13,16 +13,18 @@ Show, replace and remove the embedded front cover of the selected file.
 
 ## Design
 - TagLib's complex-properties API (`PICTURE` key, TagLib >= 2.0) works across
-  MP3 (APIC), FLAC and MP4. Reading uses a Vala vapi
-  (`src/vapi/taglib_complex.vapi`); writing uses a small C helper
-  (`src/c/taglib-picture.c`) because the picture macro cannot be called from Vala.
+  MP3 (APIC), FLAC and MP4. Both reading and writing go through a small C
+  helper (`src/c/taglib-picture.c`, bound by `src/vapi/iridium-taglib.vapi`),
+  because the picture macro and nested pointer arrays are awkward from Vala.
+  Saving a cover replaces all pictures in the file with one front cover.
 - `CoverArt` model: bytes + MIME type; equality by size and hash.
 - `AudioFile` holds the lazily loaded cover (`cover_loaded`, `cover`,
   `saved_cover`). `dirty` = tag dirty or cover dirty. `TagWriter` touches the
   picture only if the cover was loaded and changed.
 - `CoverArtService` validates an image file (MIME sniff, size limit).
-- `CoverArtWidget` (Gtk.Picture + Change/Remove) emits `cover_changed`; the
-  editor hosts it in a group at the top.
+- `CoverArtWidget` (Gtk.Picture + Change/Remove buttons) is display-only; the
+  buttons trigger `win.change-cover` / `win.remove-cover`. The editor hosts it
+  in a group at the top.
 - Logging: `cover-change`, `cover-remove` (INFO); `cover-read-failed` (WARNING).
 
 ## Steps

@@ -6,7 +6,7 @@ Risks.
 
 | Feature | Status |
 |---------|--------|
-| [cover-art](cover-art.md) | In progress |
+| [cover-art](cover-art.md) | Done |
 | [batch-edit](batch-edit.md) | Idea, not planned |
 | [app-icon](app-icon.md) | Placeholder in use |
 

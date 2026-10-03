@@ -21,8 +21,9 @@ All logging goes through `src/services/app-logger.vala`.
 
 Messages contain basenames only; full paths are written at DEBUG level.
 Actions logged: app-start, app-quit, scan, open-files, open-folder,
-drop-files, select, save, revert. Errors: tag-read-failed, tag-save-failed,
-scan-failed.
+drop-files, select, save, revert, cover-change, cover-remove. Errors:
+tag-read-failed, tag-save-failed, scan-failed, cover-read-failed,
+cover-decode-failed.
 
 ## Viewing
 

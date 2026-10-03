@@ -19,6 +19,7 @@ Logs: `journalctl --user -t co.tylr.Iridium` (also visible in GNOME Logs).
 
 - Open files or folders (dialog, drag and drop, command line)
 - Edit title, artist, album, genre, year, track, comment
+- Show, replace and remove embedded cover art
 - Unsaved-change indicator, save and revert
 - Journal logging of actions and errors
 

@@ -15,6 +15,8 @@ Manual checklist:
 - [ ] Open Files, Open Folder, drag and drop, and `iridium file.mp3` all load files
 - [ ] Selecting a file fills the editor; dirty dot and save bar appear on edit
 - [ ] Save persists (re-open file); Revert restores
+- [ ] Change cover (JPEG/PNG), Remove cover, Save, re-open: cover persists
+- [ ] Image over 10 MB or non-image is rejected with a toast
 - [ ] Read-only file: error toast + WARNING in journal
 - [ ] Narrow window collapses the split view
 - [ ] Journal entries appear (see [09-logging-observability.md](09-logging-observability.md))

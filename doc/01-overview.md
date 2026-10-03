@@ -16,6 +16,7 @@ plus Vorbis/FLAC/MP4 tags through TagLib).
 ## Scope (v0.1)
 
 Open files/folders (dialog, drag and drop, CLI args), list them, edit
-title/artist/album/genre/year/track/comment, save/revert with dirty tracking.
+title/artist/album/genre/year/track/comment, show/replace/remove the cover
+art, save/revert with dirty tracking.
 
 Planned features are tracked in [.features](.features/README.md).

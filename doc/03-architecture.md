@@ -33,11 +33,14 @@ before exceeding.
 
 ```
 src/main.vala, application.vala    entry, Adw.Application, app actions, accels
-src/models/                        audio-tag, audio-file
-src/services/                      app-logger, tag-error, tag-reader, tag-writer, file-scanner
+src/models/                        audio-tag, audio-file, cover-art
+src/services/                      app-logger, tag-error, tag-reader, tag-writer,
+                                   file-scanner, cover-art-service
+src/c/, src/vapi/                  TagLib picture helper and its Vala binding
 src/views/                         window, empty-state, sidebar, file-list-row,
                                    tag-editor, tag-basic-group, tag-details-group, save-bar
-src/widgets/tag-field-row.vala     Adw.EntryRow subclass with uint helpers
+src/widgets/                        tag-field-row (Adw.EntryRow + uint helpers),
+                                   cover-art-widget
 src/dialogs/                       about, open-dialogs (Gtk.FileDialog wrappers)
 ```
 
