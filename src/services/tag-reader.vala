@@ -19,6 +19,18 @@ namespace Iridium.TagReader {
         return tag;
     }
 
+    /** Reads the embedded cover of @path, or null if there is none. */
+    public CoverArt? read_cover (string path) throws TagError {
+        var file = new TagLib.File (path);
+        if (!file.is_valid ()) {
+            throw new TagError.OPEN ("Cannot read cover from %s",
+                                     Path.get_basename (path));
+        }
+        string? mime;
+        var data = IridiumTagLib.get_picture (file, out mime);
+        return data != null ? new CoverArt (data, mime ?? "application/octet-stream") : null;
+    }
+
     private string nz (string? s) {
         return s ?? "";
     }

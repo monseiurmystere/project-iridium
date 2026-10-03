@@ -1,4 +1,5 @@
 public errordomain Iridium.TagError {
     OPEN,
-    SAVE
+    SAVE,
+    COVER
 }
