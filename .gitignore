@@ -1,5 +1,23 @@
-build/
-build-flatpak/
+# Meson build directories (any name, any depth).
+build*/
+_build*/
+
+# Flatpak builder state and shareable bundles.
 .flatpak-builder/
 *.flatpak
+
+# Python byte-code from the po/ and tools/ helper scripts.
+__pycache__/
+*.py[cod]
+
+# Editor and tool backups/auto-saves.
 *~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Coverage and profiling artifacts.
+*.gcda
+*.gcno
+gmon.out
