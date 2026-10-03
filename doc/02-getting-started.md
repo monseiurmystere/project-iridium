@@ -2,10 +2,29 @@
 
 ## Dependencies (Fedora)
 
+The scripted path is `./tools/onboard.sh` (see README.md). The manual
+equivalent, for other distributions or debugging, is below. Package names are
+Fedora's; ports are requested in
+[11-contributing-requests](11-contributing-requests.md).
+
 ```bash
-sudo dnf install vala meson ninja-build gtk4-devel libadwaita-devel \
-  blueprint-compiler taglib-devel json-glib-devel gettext desktop-file-utils appstream \
-  flatpak-builder
+# Required: build and test.
+sudo dnf install vala meson ninja-build gcc gtk4-devel libadwaita-devel \
+  blueprint-compiler taglib-devel json-glib-devel gettext desktop-file-utils \
+  appstream flatpak-builder
+
+# Lint (clang-tidy) and the vala-lint source build:
+sudo dnf install clang-tools-extra libvala-devel
+git clone --branch 0.1.0 --depth 1 https://github.com/vala-lang/vala-lint.git
+meson setup vala-lint/build vala-lint --prefix=$HOME/.local
+meson compile -C vala-lint/build && meson install -C vala-lint/build
+
+# Optional: translation test locales.
+sudo dnf install glibc-langpack-fr glibc-langpack-es glibc-langpack-de
+
+# Optional: ffmpeg for test fixtures (needs RPM Fusion, not in Fedora repos).
+sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install ffmpeg
 ```
 
 ## Native build and run

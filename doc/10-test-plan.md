@@ -394,6 +394,23 @@ from a feature branch appear here before merge.
 Failure: strings missing from the POT (extraction gap — see risks in
 [.features/translations](.features/translations.md)).
 
+## 10c. Onboarding (ONB)
+
+### ONB-01 Script check passes here — Priority: P2 — Type: manual — Result: [ ]
+Steps: 1. `tools/onboard.sh --check`. 2. With each opt-in flag.
+Success: exit 0 and READY when everything is installed; lists exactly the
+missing pieces otherwise, changing nothing.
+Failure: false READY (missing tool not reported); any change made in
+`--check` mode.
+
+### ONB-02 Fresh-machine script review — Priority: P3 — Type: manual — Result: [ ]
+Steps: 1. Read `tools/onboard.sh` as a fresh Fedora install would run it.
+2. Confirm every dnf name with `dnf list available <pkg>` and every Flatpak
+ref against the manifest/Flathub.
+Success: no typos, no stale versions, flags match `--help`.
+Failure: script references anything not installable (full clean-room runs
+need a fresh VM and are aspirational — see section 17).
+
 ## 11. UI and adaptive (UI)
 
 ### UI-01 Narrow window collapses — Priority: P2 — Type: manual — Result: [ ]
@@ -455,8 +472,18 @@ Failure: any `error:` line.
 
 ### BLD-02 Tests and validation — Priority: P1 — Type: auto+manual — Result: [ ]
 Steps: 1. `meson test -C build`.
-Success: 3/3 OK.
+Success: all OK (7/7 with no optional tools; more when linters are installed).
 Failure: any FAIL.
+
+### BLD-04 vala-lint clean — Priority: P2 — Type: auto — Result: [ ]
+Steps: 1. Install vala-lint (`tools/onboard.sh --with-lint`). 2. `meson test -C build lint-vala`.
+Success: OK. Without the tool the test is absent (not a failure).
+Failure: any error-level finding; fix the code, not the config.
+
+### BLD-05 clang-tidy clean — Priority: P2 — Type: auto — Result: [ ]
+Steps: 1. `sudo dnf install clang-tools-extra`. 2. `meson test -C build lint-c`.
+Success: OK on `src/c/taglib-picture.c`. Absent without the tool.
+Failure: any finding. (Never run on valac-generated C.)
 
 ### BLD-03 Flatpak build — Priority: P3 — Type: manual — Result: [ ]
 Steps: 1. `flatpak-builder --force-clean build-flatpak co.tylr.Iridium.json`.
@@ -490,6 +517,9 @@ Regression? yes/no (did this pass before?)
 ```
 
 ## 17. Known gaps (suggested automated tests)
+
+- Clean-room onboarding run (fresh Fedora VM + `tools/onboard.sh` + full
+  build/test).
 
 - Scanner: duplicate detection, nested folders, extension filter — needs a
   temp-dir test with real files.
