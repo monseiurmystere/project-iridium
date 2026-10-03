@@ -1,0 +1,45 @@
+{
+  "app-id": "co.tylr.Iridium",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "49",
+  "sdk": "org.gnome.Sdk",
+  "command": "iridium",
+  "finish-args": [
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--device=dri",
+    "--filesystem=xdg-music"
+  ],
+  "modules": [
+    {
+      "name": "blueprint-compiler",
+      "buildsystem": "meson",
+      "cleanup": ["*"],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler.git",
+          "tag": "v0.16.0"
+        }
+      ]
+    },
+    {
+      "name": "taglib",
+      "buildsystem": "cmake-ninja",
+      "config-opts": ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_BUILD_TYPE=Release"],
+      "sources": [
+        {
+          "type": "archive",
+          "url": "https://taglib.github.io/releases/taglib-2.0.2.tar.gz",
+          "sha256": "0de288d7fe34ba133199fd8512f19cc1100196826eafcb67a33b224ec3a59737"
+        }
+      ]
+    },
+    {
+      "name": "iridium",
+      "buildsystem": "meson",
+      "sources": [{ "type": "dir", "path": "." }]
+    }
+  ]
+}
