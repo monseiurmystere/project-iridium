@@ -64,6 +64,7 @@ Logs: `journalctl --user -t co.tylr.Iridium` (also visible in GNOME Logs).
 | [09-logging-observability](doc/09-logging-observability.md) | Journal logging, viewing logs |
 | [.features](doc/.features/README.md) | Feature plans and status (cover art, batch edit, app icon) |
 | [10-test-plan](doc/10-test-plan.md) | Test cases, fixtures, regression list, run log |
+| [12-code-tour](doc/12-code-tour.md) | Call-by-call walkthrough with entry points |
 | [11-contributing-requests](doc/11-contributing-requests.md) | Help wanted: distro ports, reviews, icon |
 
 ## License
